@@ -20,7 +20,7 @@ export const actions = {
     try {
       const {
         data
-      } = await this.$axios.get('/api/' + id)
+      } = await this.$api.get('/' + id)
       const {
         client
       } = data

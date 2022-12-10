@@ -47,6 +47,15 @@ export default {
     },
     {
       src: "./plugins/vuelidate.js",
+    },
+    {
+      src:"./plugins/globalHelperMixin.js"
+    },
+    {
+      src: "./plugins/klin.js"
+    },
+    {
+      src: "./plugins/api.js"
     }
   ],
 
@@ -70,21 +79,10 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // baseURL: 'http://147.182.140.146:6060', // Used as fallback if no runtime config is provided
-    proxy: true,
+    
     progress: false,
   },
-  proxy: {
-    "/api": {
-      xfwd: true,
-      target: process.env.BASE_URL,
-      pathRewrite: { "^/api/": "" },
-    },
-    "/klin": {
-      xfwd: true,
-      target: process.env.KLINIKON_URL,
-      pathRewrite: { "^/klin/": "" },
-    },
-  },
+  
   moment: {
     locales: ['ru']
   },

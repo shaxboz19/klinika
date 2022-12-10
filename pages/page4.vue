@@ -1,139 +1,254 @@
 <template>
-  <div class="page _2">
-    <div class="page-header _2">
-      <h1>{{ weekDay }}</h1>
-      <h2>{{ date }}</h2>
-      <!-- <div class="gmt-time">
+  <div class="page _1" v-if="!isClose">
+    <div class="page-header _1">
+      <span>{{ getClient && getClient.name }}</span>
+      <h1>{{ getVariables && getVariables.title }}</h1>
+      <ul>
+        <!-- <li>
+          <i class="fa-regular fa-clock"></i>
+          <span>{{ getVariables && getVariables.duration }} min</span>
+        </li> -->
+        <li>
+          <!-- <i class="fa-solid fa-video"></i> -->
+          <span> {{ getVariables && getVariables.description }} </span>
+        </li>
+        <li>
+          <i class="fa-regular fa-calendar"></i>
+          <span> {{ startTime }} - {{ endTime }}, {{ date }} </span>
+        </li>
+        <!-- <li>
           <i class="fa-solid fa-earth-asia"></i>
-          <a-form-item label="GMT">
-            <a-select @change="handleChange">
-              <a-select-option v-for="i in 25" :key="(i + 9).toString(36) + i">
-                Moscow time
-              </a-select-option>
-            </a-select>
-          </a-form-item>
-        </div> -->
+
+          <span> Moscow time </span>
+        </li> -->
+      </ul>
     </div>
-    <div class="page-body 2">
-      <div class="page-body-time">
-        <div class="page-body-time-header">
-          <h2>Выберите время</h2>
-          <span>Продолжительность: {{ visitDuration }} мин</span>
-        </div>
-        <div class="page-body-time-body">
-          <ul>
-            <li v-for="(item, index) in times" :key="index">
-              <span @click="onClickTime(index)" v-if="!item.isActive">
-                {{ item.time }}
-              </span>
-              <a-row :gutter="[12, 0]" v-else>
-                <a-col span="12">
-                  <a-button
-                    type="primary"
-                    class="grey"
-                    @click="item.isActive = !item.isActive"
-                  >
-                    {{ item.time }}
-                  </a-button>
-                </a-col>
-                <a-col span="12">
-                  <a-button
-                    type="primary"
-                    class="blue"
-                    @click="clickTime(item)"
-                  >
-                    Подтверждать
-                  </a-button>
-                </a-col>
-              </a-row>
-            </li>
-          </ul>
-        </div>
+    <div class="page-body _1">
+      <div class="page-body-form">
+        <h2>Введите дополнительные данные</h2>
+        <a-row :gutter="[0, 16]">
+          <!-- <a-col span="24">
+            <a-form-item label="Name">
+              <a-input> </a-input>
+            </a-form-item>
+          </a-col> -->
+          <!-- <a-col span="24">
+            <a-form-item label="Email">
+              <a-input> </a-input>
+            </a-form-item>
+          </a-col>
+          <a-col span="24">
+            <a-button type="primary" class="blue">Add guests</a-button>
+          </a-col>
+          <a-col span="24">
+            <a-form-item label="Phone">
+              <a-input> </a-input>
+            </a-form-item>
+          </a-col> -->
+          <a-col span="24">
+            <a-form-item label="Имя">
+              <a-input
+                v-model="form.firstname"
+                :class="{
+                  error:
+                    $v.form.firstname.$dirty && !$v.form.firstname.required,
+                }"
+              >
+              </a-input>
+            </a-form-item>
+            <div
+              class="error"
+              v-if="$v.form.firstname.$dirty && !$v.form.firstname.required"
+            >
+              Обязательное поле
+            </div>
+          </a-col>
+          <a-col span="24">
+            <a-form-item label="Фамилия">
+              <a-input
+                v-model="form.surname"
+                :class="{
+                  error: $v.form.surname.$dirty && !$v.form.surname.required,
+                }"
+              >
+              </a-input>
+            </a-form-item>
+            <div
+              class="error"
+              v-if="$v.form.surname.$dirty && !$v.form.surname.required"
+            >
+              Обязательное поле
+            </div>
+          </a-col>
+          <a-col span="24">
+            <a-form-item label="Отчество">
+              <a-input v-model="form.patronymic"> </a-input>
+            </a-form-item>
+          </a-col>
+          <a-col span="24">
+            <a-form-item label="Телефон">
+              <a-input
+                v-model="form.telephone"
+                :class="{
+                  error:
+                    $v.form.telephone.$dirty && !$v.form.telephone.required,
+                }"
+              >
+              </a-input>
+            </a-form-item>
+            <div
+              class="error"
+              v-if="$v.form.telephone.$dirty && !$v.form.telephone.required"
+            >
+              Обязательное поле
+            </div>
+          </a-col>
+          <a-col span="24" label="Возраст">
+            <a-form-item label="Возраст">
+              <a-input-number
+                id="inputNumber"
+                :min="1"
+                v-model="form.age"
+                :class="{
+                  error: $v.form.age.$dirty && !$v.form.age.required,
+                }"
+              />
+            </a-form-item>
+            <div
+              class="error"
+              v-if="$v.form.age.$dirty && !$v.form.age.required"
+            >
+              Обязательное поле
+            </div>
+          </a-col>
+          <a-col span="24">
+            <a-form-item label="Комментарий">
+              <a-textarea v-model="comment"> </a-textarea>
+            </a-form-item>
+          </a-col>
+
+          <a-col span="24">
+            <a-button type="primary" class="blue" @click="onSubmit"
+              >Отправить</a-button
+            >
+          </a-col>
+        </a-row>
       </div>
     </div>
+  </div>
+  <div v-else class="error-message">
+    {{ getVariables.finalMessage || "Данные успешно сохранены" }}
   </div>
 </template>
 
 <script>
 import { mapGetters, mapState } from "vuex";
-import { routes } from "../constants/router";
+import { required } from "vuelidate/lib/validators";
+import { personId } from "../constants/env";
 export default {
+  name: "IndexPage",
   data() {
     return {
-      times: [],
-      weekDay: null,
+      form: {
+        surname: "",
+        firstname: "",
+        patronymic: "",
+        age: null,
+        telephone: null,
+      },
+      comment: "",
+      endTime: null,
+      startTime: null,
       date: null,
-      visitDuration: 30,
+      isClose: false,
+      isSendRequest: false,
     };
   },
-  async mounted() {
-    this.visitDuration = +this.getVariables?.visitDuration || 30;
-    const { startTime, endTime, date } = this.$route.query;
-    const start = this.parseDate(date, startTime);
-    const end = this.parseDate(date, endTime);
-    let step = this.visitDuration * 60 * 1000;
-    this.times = this.splitInterval(start, end, step);
-  },
-  methods: {
-    onClickTime(index) {
-      this.times.forEach((el) => {
-        el.isActive = false;
-      });
-      this.times[index].isActive = true;
-    },
-    handleChange(e) {
-      console.log(e);
-    },
-    async clickTime(item) {
-      const { date, id } = this.$route.query;
-      try {
-        const { data } = await this.$axios.post(`/api/${this.client}/request`, {
-          code: "time",
-          params: {
-            time: item.time,
-          },
-        });
-        const step = data.currentNode?.title || "";
-        const route = routes[step];
-        this.$router.push({
-          name: route,
-          query: { id, date, time: item.time },
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    splitInterval(start, end, step) {
-      let result = [];
-
-      for (let ts = start; ts < end; ts += step) {
-        const hour = new Date(ts).getHours();
-        const min = new Date(ts).getMinutes();
-        if (min == 0) {
-          min = "00";
-        }
-
-        result.push({ time: `${hour}:${min}`, isActive: false });
-      }
-
-      // if (result.length == 1) {
-      //   result.push(end);
-      // }
-      console.log(result);
-      return result;
-    },
-    parseDate(date, time) {
-      const [day, month, year] = date.split("-");
-      const [hours, minutes] = time.split(":");
-      const ts = new Date(+year, +month - 1, +day, hours, minutes).getTime();
-      return ts;
+  validations: {
+    form: {
+      surname: { required },
+      firstname: { required },
+      age: { required },
+      telephone: { required },
     },
   },
   computed: {
     ...mapGetters("home", ["getClient", "getVariables"]),
     ...mapState(["client"]),
+    getTime() {},
+  },
+  mounted() {
+    this.startTime = this.$route.query.time;
+    this.date = this.$moment(this.$route.query.date, "DD-MM-YYYY").format(
+      "dddd MMM Do YYYY"
+    );
+    const date = this.$route.query.date;
+    const time = this.$route.query.time;
+    const dateTime = date + " " + time;
+    const endDateTime =
+      new Date(this.$moment(dateTime, "DD-MM-YYYY HH:mm").format()).getTime() +
+      1800000;
+    this.endTime = this.$moment(endDateTime).format("HH:mm");
+    console.log(this.getVariables, "sss");
+    this.isSendRequest = this.getVariables.isSendRequest || false;
+  },
+  methods: {
+    onPanelChange(value, mode) {
+      console.log(value, mode);
+    },
+    handleChange(e) {
+      console.log(e);
+    },
+    async onSubmit() {
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        try {
+          const { date, time } = this.$route.query;
+          const form = {
+            client: {
+              ...this.form,
+              proccesingOfPersonalData: true,
+            },
+            visitItems: [
+              {
+                employeeId: personId,
+                serviceId: 163,
+                startTime: time,
+              },
+            ],
+            employee: {
+              id: personId,
+            },
+            visit: {
+              date,
+              comment: this.comment,
+            },
+          };
+          if (this.isSendRequest) {
+            await this.$klin.post(`/createVisit/cjq5rq01jvFnwNLuqiLr`, form);
+          }
+
+          await this.$api.post(`/${this.client}/request`, {
+            code: "submit",
+            params: {
+              ...form,
+            },
+          });
+          this.isClose = true;
+        } catch (error) {
+          const {
+            data: { message },
+          } = error.response;
+          this.errorHandler(message);
+        }
+      }
+    },
   },
 };
 </script>
-
-<style></style>
+<style>
+.error {
+  color: red;
+  border-color: red;
+}
+</style>

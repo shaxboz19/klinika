@@ -4,27 +4,30 @@
       <h1>{{ weekDay }}</h1>
       <h2>{{ date }}</h2>
       <!-- <div class="gmt-time">
-        <i class="fa-solid fa-earth-asia"></i>
-        <a-form-item label="GMT">
-          <a-select @change="handleChange">
-            <a-select-option v-for="i in 25" :key="(i + 9).toString(36) + i">
-              Moscow time
-            </a-select-option>
-          </a-select>
-        </a-form-item>
-      </div> -->
+          <i class="fa-solid fa-earth-asia"></i>
+          <a-form-item label="GMT">
+            <a-select @change="handleChange">
+              <a-select-option v-for="i in 25" :key="(i + 9).toString(36) + i">
+                Moscow time
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+        </div> -->
     </div>
     <div class="page-body 2">
       <div class="page-body-time">
         <div class="page-body-time-header">
-          <h2>Выберите время</h2>
-          <span>Продолжительность: 30 мин</span>
+          <h2>Выберите специалиста</h2>
+          <!-- <span>Продолжительность: 30 мин</span> -->
         </div>
         <div class="page-body-time-body">
           <ul>
-            <li v-for="(item, index) in times" :key="index">
-              <span @click="onClickTime(index)" v-if="!item.isActive">
-                {{ item.time }}
+            <li v-for="(item, index) of employees" :key="index">
+              <span v-if="!item.isActive" @click="onClickTime(index)">
+                <span>
+                  {{ item.lastname }} {{ item.firstname }} {{ item.patronymic }}
+                </span>
+                <small>{{ item.positionName }}</small>
               </span>
               <a-row :gutter="[12, 0]" v-else>
                 <a-col span="12">
@@ -33,7 +36,7 @@
                     class="grey"
                     @click="item.isActive = !item.isActive"
                   >
-                    {{ item.time }}
+                    {{ item.firstname }} {{ item.lastname }}
                   </a-button>
                 </a-col>
                 <a-col span="12">
@@ -56,68 +59,53 @@
 
 <script>
 import { mapGetters, mapState } from "vuex";
-import { personId } from "../constants/env";
 import { routes } from "../constants/router";
-
 export default {
   data() {
     return {
-      times: [],
+      employees: [],
       weekDay: null,
       date: null,
     };
   },
   async mounted() {
-    this.visitDuration = +this.getVariables?.visitDuration || 30;
-    const { date } = this.$route.query;
     try {
-      const { data } = await this.$klin.get(
-        "/getSchedule/cjq5rq01jvFnwNLuqiLr?date=" + this.$route.query.date
+      const { data } = await this.$axios.get(
+        "/klin/getEmployees/cjq5rq01jvFnwNLuqiLr"
       );
-      let times = [];
-      for (const key in data.employees) {
-        if (key == personId) {
-          data.employees[key].forEach((e) => {
-            e.isActive = false;
-            const start = this.parseDate(date, e.startTime);
-            const end = this.parseDate(date, e.endTime);
-            let step = this.visitDuration * 60 * 1000;
-            const res = this.splitInterval(start, end, step);
-            times = [...times, ...res];
-          });
-          this.times = times;
-        }
-      }
+      data.forEach((e) => {
+        e.isActive = false;
+      });
+      this.employees = data;
+      console.log(this.employees);
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   },
   methods: {
     onClickTime(index) {
-      this.times.forEach((el) => {
+      this.employees.forEach((el) => {
         el.isActive = false;
       });
-      this.times[index].isActive = true;
+      this.employees[index].isActive = true;
     },
     handleChange(e) {
       console.log(e);
     },
     async clickTime(item) {
-      const { date } = this.$route.query;
       try {
-        const { data } = await this.$api.post(`/${this.client}/request`, {
-          code: "time",
+        const form = {
+          id: item.id,
+        };
+        const { data } = await this.$axios.post(`/api/${this.client}/request`, {
+          code: "persons",
           params: {
-            time: item.time,
+            ...form,
           },
         });
         const step = data.currentNode?.title || "";
-        console.log(step);
         const route = routes[step];
-        this.$router.push({
-          name: route,
-          query: { date, time: item.time },
-        });
+        this.$router.push({ name: route, query: { id: item.id } });
       } catch (error) {
         console.log(error);
       }
