@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" v-if="isLoad">
     <Nuxt />
   </div>
   <!-- <div  class="error-message">
@@ -16,18 +16,21 @@ export default {
   data() {
     return {
       link: null,
+      isLoad: false,
     };
   },
-  mounted() {
+  async mounted() {
+    this.isLoad = false;
     this.link = "bot_marketing_demos_bot";
     if (this.$route.query.client) {
       this.$store.commit("setClient", this.$route.query.client);
       localStorage.setItem("client", this.$route.query.client);
     }
-    this.getDetail();
+    await this.getDetail();
     if (!localStorage.getItem("client")) {
       this.$store.commit("setError", true);
     }
+    this.isLoad = true;
   },
   methods: {
     async getDetail() {
