@@ -1,6 +1,6 @@
 .ant-fullcalendar-selected-day .ant-fullcalendar-value,
 .ant-fullcalendar-month-panel-selected-cell .ant-fullcalendar-value {
-  background-color: #292F69;
+  background-color: #292f69;
   border: none;
   outline: none;
 }
@@ -8,7 +8,7 @@
 .ant-fullcalendar-today .ant-fullcalendar-value,
 .ant-fullcalendar-month-panel-current-cell .ant-fullcalendar-value {
   -webkit-box-shadow: unset;
-          box-shadow: unset;
+  box-shadow: unset;
 }
 
 .ant-radio-button-wrapper:hover,
@@ -16,42 +16,52 @@
 .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):first-child,
 .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled),
 .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover {
-  color: #292F69;
+  color: #292f69;
   -webkit-box-shadow: unset !important;
-          box-shadow: unset !important;
-  border-color: #292F69;
+  box-shadow: unset !important;
+  border-color: #292f69;
 }
 
 .ant-form-item-control .ant-select-focused .ant-select-selection,
 .ant-form-item-control .ant-select-selection:focus,
 .ant-form-item-control .ant-select-selection:active {
-  border-color: #292F69;
+  border-color: #292f69;
   -webkit-box-shadow: unset !important;
-          box-shadow: unset !important;
+  box-shadow: unset !important;
 }
 
 .ant-fullcalendar-value:active {
-  background-color: #F0F7FA;
+  background-color: #f0f7fa;
 }
 
-.ant-form-item-control .ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled),
+.ant-form-item-control
+  .ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled),
 .ant-form-item-control .ant-select-dropdown-menu-item-selected,
-.ant-form-item-control .ant-select-dropdown-menu-item-active:not(.ant-select-dropdown-menu-item-disabled) {
+.ant-form-item-control
+  .ant-select-dropdown-menu-item-active:not(.ant-select-dropdown-menu-item-disabled) {
   background-color: #f4f4f4;
 }
 
-.ant-form-item-control .ant-select-focused .ant-select-selection--single.ant-select-selection,
+.ant-form-item-control
+  .ant-select-focused
+  .ant-select-selection--single.ant-select-selection,
 .ant-form-item-control .ant-select-selection--single.ant-select-selection:focus,
-.ant-form-item-control .ant-select-selection--single.ant-select-selection:active {
+.ant-form-item-control
+  .ant-select-selection--single.ant-select-selection:active {
   -webkit-box-shadow: unset !important;
-          box-shadow: unset !important;
+  box-shadow: unset !important;
 }
 
-.ant-form-item-control .ant-select-focused .ant-select-selection--single .ant-select-selection__rendered {
+.ant-form-item-control
+  .ant-select-focused
+  .ant-select-selection--single
+  .ant-select-selection__rendered {
   border-color: rgba(60, 60, 67, 0.6);
 }
 
-.ant-form-item-control .ant-select-selection--single:hover .ant-select-selection__rendered {
+.ant-form-item-control
+  .ant-select-selection--single:hover
+  .ant-select-selection__rendered {
   border-color: rgba(60, 60, 67, 0.6);
 }
 
@@ -63,7 +73,9 @@
   height: unset;
 }
 
-.ant-form-item-control .ant-select-selection--single .ant-select-selection__rendered {
+.ant-form-item-control
+  .ant-select-selection--single
+  .ant-select-selection__rendered {
   line-height: unset;
   height: 32px;
   margin: 0;
@@ -72,8 +84,8 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   border: 1px solid rgba(60, 60, 67, 0.6);
   border-radius: 4px;
 }
@@ -81,7 +93,7 @@
 .ant-form-item-control .ant-select-selection--single .ant-select-arrow {
   top: 50%;
   -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  transform: translateY(-50%);
   margin: 0;
 }
 
@@ -89,7 +101,9 @@
   border: none;
 }
 
-.ant-form-item-control .ant-select-selection--single .ant-select-selection-selected-value {
+.ant-form-item-control
+  .ant-select-selection--single
+  .ant-select-selection-selected-value {
   font-weight: 400;
   font-size: 14px;
   letter-spacing: 0.25px;
@@ -102,11 +116,13 @@
   top: 50%;
   margin: 0;
   -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
-.ant-form-item-control .ant-select-selection--multiple .ant-select-arrow::after {
-  content: '';
+.ant-form-item-control
+  .ant-select-selection--multiple
+  .ant-select-arrow::after {
+  content: "";
   position: absolute;
   left: 0;
   width: 0.5px;
@@ -120,10 +136,12 @@
   color: #000000;
 }
 
-.ant-form-item-control .ant-select-selection--multiple .ant-select-selection__clear {
+.ant-form-item-control
+  .ant-select-selection--multiple
+  .ant-select-selection__clear {
   top: 50%;
   -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  transform: translateY(-50%);
   margin: 0;
   opacity: 1;
   width: auto;
@@ -136,8 +154,10 @@
   color: rgba(60, 60, 67, 0.6);
 }
 
-.ant-form-item-control .ant-select-selection--multiple .ant-select-selection__choice {
-  background-color: #F9F9F9;
+.ant-form-item-control
+  .ant-select-selection--multiple
+  .ant-select-selection__choice {
+  background-color: #f9f9f9;
   border-color: rgba(60, 60, 67, 0.3) !important;
   padding-left: 8px;
 }
@@ -150,7 +170,7 @@
 .ant-form-item-control .ant-select-selection:focus,
 .ant-form-item-control .ant-select-selection:active {
   -webkit-box-shadow: unset !important;
-          box-shadow: unset !important;
+  box-shadow: unset !important;
 }
 
 .ant-form-item {
@@ -192,15 +212,15 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   font-weight: 700;
   font-size: 14px;
   line-height: 19px;
   border-radius: 4px;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .ant-col .ant-btn {
@@ -219,7 +239,7 @@
 }
 
 .ant-btn-primary.blue {
-  background-color: #292F69;
+  background-color: #292f69;
 }
 
 .ant-btn-primary.grey {
@@ -239,7 +259,7 @@ body {
 }
 
 .page-header {
-  background-color: #F0F7FA;
+  background-color: #f0f7fa;
   padding: 16px;
   border-radius: 0 0 20px 20px;
   margin-bottom: 16px;
@@ -277,7 +297,7 @@ body {
 .page-header > ul > li i {
   display: inline-block;
   margin-right: 8px;
-  color: #292F69;
+  color: #292f69;
 }
 
 .page-header > ul > li span,
@@ -299,7 +319,7 @@ body {
   font-size: 14px;
   line-height: 20px;
   letter-spacing: 0.25px;
-  color: #292F69;
+  color: #292f69;
 }
 
 .page-header._2 {
@@ -308,11 +328,11 @@ body {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .page-header._2 h2 {
@@ -395,17 +415,17 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   border-radius: 4px;
-  border: 1px solid #292F69;
+  border: 1px solid #292f69;
   cursor: pointer;
 }
 
@@ -423,12 +443,12 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .gmt-time > i {
-  color: #292F69;
+  color: #292f69;
   margin-right: 8px;
 }
 
@@ -437,8 +457,8 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .gmt-time .ant-form-item .ant-form-item-label {
