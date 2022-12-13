@@ -178,6 +178,20 @@ export default {
     getTime() {},
   },
   mounted() {
+    if (window.visualViewport) {
+      function resizeHandler() {
+        for (const sessionView of document.getElementsByClassName(
+          "SessionView"
+        )) {
+          sessionView.style.height =
+            window.visualViewport.height.toString() + "px";
+          document.getElementsByTagName("html")[0].style.height =
+            window.visualViewport.height.toString() + "px";
+        }
+      }
+
+      window.visualViewport.addEventListener("resize", resizeHandler);
+    }
     this.startTime = this.$route.query.time;
     this.date = this.$moment(this.$route.query.date, "DD-MM-YYYY").format(
       "dddd MMM Do YYYY"
