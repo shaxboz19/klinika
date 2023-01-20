@@ -18,7 +18,7 @@
       <div class="page-body-time">
         <div class="page-body-time-header">
           <h2>Выберите время</h2>
-          <span>Продолжительность: 30 мин</span>
+          <span>Продолжительность: {{ visitDuration }} мин</span>
         </div>
         <div class="page-body-time-body">
           <ul>
@@ -68,7 +68,7 @@ export default {
     };
   },
   async mounted() {
-    this.visitDuration = +this.getVariables?.visitDuration || 30;
+    this.visitDuration = +this.$route.query.interval || 30;
     const { date } = this.$route.query;
     try {
       const { data } = await this.$klin.get(
