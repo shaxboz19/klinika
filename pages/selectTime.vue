@@ -103,7 +103,7 @@ export default {
       console.log(e);
     },
     async clickTime(item) {
-      const { date } = this.$route.query;
+      const { date, interval } = this.$route.query;
       try {
         const { data } = await this.$api.post(`/${this.client}/request`, {
           code: "time",
@@ -116,7 +116,7 @@ export default {
         const route = routes[step];
         this.$router.push({
           name: route,
-          query: { date, time: item.time },
+          query: { date, time: item.time, interval },
         });
       } catch (error) {
         console.log(error);

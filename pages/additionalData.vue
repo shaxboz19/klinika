@@ -178,6 +178,7 @@ export default {
     getTime() {},
   },
   mounted() {
+    const interval = this.$route.query.interval || 30;
     if (window.visualViewport) {
       function resizeHandler() {
         for (const sessionView of document.getElementsByClassName(
@@ -201,7 +202,7 @@ export default {
     const dateTime = date + " " + time;
     const endDateTime =
       new Date(this.$moment(dateTime, "DD-MM-YYYY HH:mm").format()).getTime() +
-      1800000;
+      interval * 60 * 1000;
     this.endTime = this.$moment(endDateTime).format("HH:mm");
     console.log(this.getVariables, "sss");
     this.isSendRequest = this.getVariables.isSendRequest || false;
