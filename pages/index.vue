@@ -87,6 +87,10 @@ export default {
           }
         }
       }
+      
+      if(this.availableDates.length === 0) {
+        this.availableDates.push(new Date(1970, 1, 1))
+      }
     } catch (error) {
       console.log(error);
     }
