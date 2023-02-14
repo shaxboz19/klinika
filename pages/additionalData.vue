@@ -144,7 +144,7 @@
 <script>
 import { mapGetters, mapState } from "vuex";
 import { required } from "vuelidate/lib/validators";
-import { personId } from "../constants/env";
+// import { personId } from "../constants/env";
 export default {
   name: "IndexPage",
   data() {
@@ -215,6 +215,7 @@ export default {
       console.log(e);
     },
     async onSubmit() {
+      const { personId = 13 } = this.getVariables;
       this.$v.$touch();
       if (!this.$v.$invalid) {
         try {

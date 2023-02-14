@@ -1,8 +1,8 @@
 <template>
   <div class="page _2">
     <div class="page-header _2">
-      <h1>{{ weekDay }}</h1>
-      <h2>{{ date }}</h2>
+      <span>{{ getVariables && getVariables.name }}</span>
+      <h1>{{ getVariables && getVariables.title }}</h1>
       <!-- <div class="gmt-time">
             <i class="fa-solid fa-earth-asia"></i>
             <a-form-item label="GMT">

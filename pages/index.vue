@@ -1,7 +1,7 @@
 <template>
   <div class="page _1">
     <div class="page-header _1">
-      <span>{{ getClient && getClient.name }}</span>
+      <span>{{ getVariables && getVariables.name }}</span>
       <h1>{{ getVariables && getVariables.title }}</h1>
       <ul>
         <!-- <li>
@@ -59,7 +59,7 @@
 import { en, ru } from "~/utils/calendarLocale.js";
 import { mapGetters, mapState } from "vuex";
 import { routes } from "../constants/router";
-import { personId } from "../constants/env";
+
 export default {
   name: "IndexPage",
   data() {
@@ -77,6 +77,7 @@ export default {
       const { data } = await this.$klin.get(
         "/getScheduleCache/cjq5rq01jvFnwNLuqiLr"
       );
+      const { personId = 13 } = this.getVariables;
       for (const date in data) {
         for (const person in data[date]) {
           if (person == personId) {
@@ -87,9 +88,9 @@ export default {
           }
         }
       }
-      
-      if(this.availableDates.length === 0) {
-        this.availableDates.push(new Date(1970, 1, 1))
+
+      if (this.availableDates.length === 0) {
+        this.availableDates.push(new Date(1970, 1, 1));
       }
     } catch (error) {
       console.log(error);

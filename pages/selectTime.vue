@@ -1,8 +1,8 @@
 <template>
   <div class="page _2">
     <div class="page-header _2">
-      <h1>{{ weekDay }}</h1>
-      <h2>{{ date }}</h2>
+      <span>{{ getVariables && getVariables.name }}</span>
+      <h1>{{ getVariables && getVariables.title }}</h1>
       <!-- <div class="gmt-time">
         <i class="fa-solid fa-earth-asia"></i>
         <a-form-item label="GMT">
@@ -56,7 +56,7 @@
 
 <script>
 import { mapGetters, mapState } from "vuex";
-import { personId } from "../constants/env";
+
 import { routes } from "../constants/router";
 
 export default {
@@ -69,6 +69,7 @@ export default {
   },
   async mounted() {
     this.visitDuration = +this.$route.query.interval || 30;
+    const { personId = 13 } = this.getVariables;
     const { date } = this.$route.query;
     try {
       const { data } = await this.$klin.get(
