@@ -44,7 +44,7 @@
                     class="blue"
                     @click="clickTime(item)"
                   >
-                    Подтверждать
+                    Подтвердить
                   </a-button>
                 </a-col>
               </a-row>
