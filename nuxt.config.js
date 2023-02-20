@@ -56,6 +56,9 @@ export default {
     },
     {
       src: "./plugins/api.js"
+    },
+    {
+      src: "./plugins/v-mask.js"
     }
   ],
 

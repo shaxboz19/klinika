@@ -89,9 +89,13 @@
             <a-form-item label="Телефон">
               <a-input
                 v-model="form.telephone"
+                v-mask="'+7##########'"
                 :class="{
                   error:
-                    $v.form.telephone.$dirty && !$v.form.telephone.required,
+                    ($v.form.telephone.$dirty && !$v.form.telephone.required) ||
+                    ($v.form.telephone.$dirty &&
+                      !$v.form.telephone.minLength) ||
+                    ($v.form.telephone.$dirty && !$v.form.telephone.maxLength),
                 }"
               >
               </a-input>
@@ -101,6 +105,22 @@
               v-if="$v.form.telephone.$dirty && !$v.form.telephone.required"
             >
               Обязательное поле
+            </div>
+            <div
+              class="error"
+              v-else-if="
+                $v.form.telephone.$dirty && !$v.form.telephone.minLength
+              "
+            >
+              Введите корректный номер телефона
+            </div>
+            <div
+              class="error"
+              v-else-if="
+                $v.form.telephone.$dirty && !$v.form.telephone.maxLength
+              "
+            >
+              Введите корректный номер телефона
             </div>
           </a-col>
           <a-col span="24" label="Возраст">
@@ -143,7 +163,7 @@
 
 <script>
 import { mapGetters, mapState } from "vuex";
-import { required } from "vuelidate/lib/validators";
+import { required, minLength, maxLength } from "vuelidate/lib/validators";
 // import { personId } from "../constants/env";
 export default {
   name: "IndexPage",
@@ -154,7 +174,7 @@ export default {
         firstname: "",
         patronymic: "",
         age: null,
-        telephone: null,
+        telephone: "+7",
       },
       comment: "",
       endTime: null,
@@ -169,7 +189,11 @@ export default {
       surname: { required },
       firstname: { required },
       age: { required },
-      telephone: { required },
+      telephone: {
+        required,
+        minLength: minLength(12),
+        maxLength: maxLength(12),
+      },
     },
   },
   computed: {
