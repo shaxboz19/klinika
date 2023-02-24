@@ -6,7 +6,7 @@ export default {
             const ts = new Date(+year, +month - 1, +day, hours, minutes).getTime();
             return ts;
           },   
-          splitInterval(start, end, step) {
+          splitInterval(start, end, step, id) {
             let result = [];
       
             for (let ts = start; ts < end; ts += step) {
@@ -16,7 +16,7 @@ export default {
                 min = "00";
               }
       
-              result.push({ time: `${hour}:${min}`, isActive: false });
+              result.push({ time: `${hour}:${min}`, isActive: false, id });
             } 
             return result;
           },

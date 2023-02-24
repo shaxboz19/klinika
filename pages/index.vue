@@ -77,14 +77,16 @@ export default {
       const { data } = await this.$klin.get(
         "/getScheduleCache/cjq5rq01jvFnwNLuqiLr"
       );
-      const { personId = 13 } = this.getVariables;
+      const { personId = [] } = this.getVariables;
       for (const date in data) {
         for (const person in data[date]) {
-          if (person == personId) {
-            this.availableDates.push({
-              start: new Date(date),
-              end: new Date(date),
-            });
+          for (const id of personId) {
+            if (person == id) {
+              this.availableDates.push({
+                start: new Date(date),
+                end: new Date(date),
+              });
+            }
           }
         }
       }

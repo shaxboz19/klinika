@@ -182,6 +182,7 @@ export default {
       date: null,
       isClose: false,
       isSendRequest: false,
+      persons: [],
     };
   },
   validations: {
@@ -201,7 +202,7 @@ export default {
     ...mapState(["client"]),
     getTime() {},
   },
-  mounted() {
+  async mounted() {
     const interval = this.$route.query.interval || 30;
     if (window.visualViewport) {
       function resizeHandler() {
@@ -228,8 +229,9 @@ export default {
       new Date(this.$moment(dateTime, "DD-MM-YYYY HH:mm").format()).getTime() +
       interval * 60 * 1000;
     this.endTime = this.$moment(endDateTime).format("HH:mm");
-    console.log(this.getVariables, "sss");
     this.isSendRequest = this.getVariables.isSendRequest || false;
+    const { data } = await this.$klin.get(`/getEmployees/cjq5rq01jvFnwNLuqiLr`);
+    this.persons = data;
   },
   methods: {
     onPanelChange(value, mode) {
@@ -239,7 +241,7 @@ export default {
       console.log(e);
     },
     async onSubmit() {
-      const { personId = 13 } = this.getVariables;
+      const { id: personId } = this.$route.query;
       this.$v.$touch();
       if (!this.$v.$invalid) {
         try {
@@ -268,6 +270,11 @@ export default {
             await this.$klin.post(`/createVisit/cjq5rq01jvFnwNLuqiLr`, form);
           }
 
+          const { firstname, lastname, patronymic } = this.persons.find(
+            (e) => e.id == personId
+          );
+
+          form.employee.name = `${lastname} ${firstname} ${patronymic}`;
           await this.$api.post(`/${this.client}/request`, {
             code: "submit",
             params: {
@@ -276,6 +283,7 @@ export default {
           });
           this.isClose = true;
         } catch (error) {
+          console.log(error);
           const {
             data: { message },
           } = error.response;

@@ -69,26 +69,30 @@ export default {
   },
   async mounted() {
     this.visitDuration = +this.$route.query.interval || 30;
-    const { personId = 13 } = this.getVariables;
+    const { personId = [] } = this.getVariables;
     const { date } = this.$route.query;
     try {
       const { data } = await this.$klin.get(
         "/getSchedule/cjq5rq01jvFnwNLuqiLr?date=" + this.$route.query.date
       );
       let times = [];
-      for (const key in data.employees) {
-        if (key == personId) {
-          data.employees[key].forEach((e) => {
-            e.isActive = false;
-            const start = this.parseDate(date, e.startTime);
-            const end = this.parseDate(date, e.endTime);
-            let step = this.visitDuration * 60 * 1000;
-            const res = this.splitInterval(start, end, step);
-            times = [...times, ...res];
-          });
-          this.times = times;
+      personId.forEach((id) => {
+        for (const key in data.employees) {
+          if (key == id) {
+            data.employees[key].forEach((e) => {
+              e.isActive = false;
+
+              const start = this.parseDate(date, e.startTime);
+              const end = this.parseDate(date, e.endTime);
+              let step = this.visitDuration * 60 * 1000;
+              const res = this.splitInterval(start, end, step, id);
+
+              times = [...times, ...res];
+            });
+            this.times = times;
+          }
         }
-      }
+      });
     } catch (error) {
       console.error(error);
     }
@@ -113,11 +117,10 @@ export default {
           },
         });
         const step = data.currentNode?.title || "";
-        console.log(step);
         const route = routes[step];
         this.$router.push({
           name: route,
-          query: { date, time: item.time, interval },
+          query: { date, time: item.time, interval, id: item.id },
         });
       } catch (error) {
         console.log(error);
